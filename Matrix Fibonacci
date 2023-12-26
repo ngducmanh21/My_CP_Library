@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+#define el '\n'
+#define f0(i,n) for(int i = 0 ; i < n ; ++i)
+#define f1(i,n) for(int i = 1 ; i <= n ; ++i)
+#define maxn
+using namespace std;
+
+const int MOD = 1e9 + 7;
+
+struct matrix
+{
+    long long x[2][2];
+    matrix()
+    {
+        memset(x , 0 , sizeof(x));
+    }
+
+};
+
+matrix operator * (const matrix& a, const matrix& b)
+{
+    matrix c;
+    for (int i = 0; i < 2 ; ++i)
+        for(int j = 0 ; j < 2 ; ++j)
+            for(int k = 0 ; k < 2 ; ++k)
+            {
+                (c.x[i][j] += a.x[i][k] * b.x[k][j] % MOD) % MOD;
+            }
+return c;
+}
+
+matrix Pow(const matrix& T , long long n)
+{
+    if(n == 0)
+    {
+        matrix I;
+        for (int i = 0 ; i < 2 ; ++i)
+        {
+            I.x[i][i] = 1;
+        }
+        return I;
+    }
+    matrix tmp = Pow(T, n / 2);
+    tmp = tmp * tmp;
+    if(n & 1) tmp =  tmp * T;
+    return tmp;
+}
+
+long long n;
+
+main(){
+   ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+   matrix a;
+   cin >> n;
+   if(n <= 1)
+   {
+       return cout << n,0;
+   }
+   matrix T;
+   T.x[0][0] = T.x[0][1] = T.x[1][0] = 1;
+   T = Pow(T, n - 1);
+   matrix u;
+   u.x[0][0] = 1;
+   matrix ans = T * u;
+   cout << ans.x[0][0];
+}
