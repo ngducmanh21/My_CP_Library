@@ -1,8 +1,4 @@
 #include<bits/stdc++.h>
-#define el '\n'
-#define f0(i,n) for(int i = 0 ; i < n ; ++i)
-#define f1(i,n) for(int i = 1 ; i <= n ; ++i)
-#define maxn
 using namespace std;
 
 const int MOD = 1e9 + 7;
